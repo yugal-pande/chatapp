@@ -10,7 +10,7 @@ class DatabaseService{
     DatabaseService({this.uid});
 
     //Reference for our collections on Firebase
-    final CollectionReference userCollection = FirebaseFirestore.instance.collection("users");
+    final CollectionReference userCollection = FirebaseFirestore.instance.collection("users"); //If this collection exists then we will get this collection otherwise firestore will automatically create this collection
     final CollectionReference groupCollection = FirebaseFirestore.instance.collection("groups");
 
     //Saving the user data

@@ -17,12 +17,13 @@ Future loginWithUserWithEmailandPassword(String email, String password) async{
   on FirebaseAuthException catch(e){
     return e.message;
   }
-} 
+}
 
 //Register User Function
 Future registerUserWithEmailandPassword(String fullName, String email, String password) async{
   try{
     User user = (await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user!;
+    //String downloadUrl = await _uploadToStorage(image);
 
     if(user!=null){
       //Call our database service to update the user data
