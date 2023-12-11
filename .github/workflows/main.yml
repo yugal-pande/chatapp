@@ -1,36 +1,31 @@
 name: Build and Release APK
 on: push
 jobs:
-  hosting:
-    name: Deploy Website
-    runs-on: ubuntu-latest
-    env:
-      FLUTTER_VERSION: "3.10.3"
-      DART_VERSION: "3.0.3"
+    hosting:
+      name: Deploy Website
+      runs-on: ubuntu-latest
+      steps:
+        # Checkout Repository
+        - uses: actions/checkout@v3
 
-    steps:
-      # Checkout Repository
-      - uses: actions/checkout@v3
+        # Install Flutter command
+        - uses: subosito/flutter-action@v1
+          with:
+            channel: 'dev'
 
-      # Install Flutter command
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v3.10.3
-        with:
-          channel: ${{ env.FLUTTER_VERSION }}
+        # Build Website
+        - name: Build Website
+          run: |
+            flutter config --enable-web
+            flutter pub get
+            flutter build web --release
+          working-directory: ./
 
-      # Build Website
-      - name: Build Website
-        run: |
-          flutter config --enable-web
-          flutter pub get
-          flutter build web --release
-        working-directory: ./
-
-      # Deploy Firebase Hosting
-      - name: Deploy Firebase Hosting
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting:chatappflutter-67ea1
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: ./
+        # Deploy Firebase Hosting
+        - name: Deploy Firebase Hosting
+          uses: w9jds/firebase-action@master
+          with:
+            args: deploy --only hosting:chatappflutter-67ea1
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+            PROJECT_PATH: ./
