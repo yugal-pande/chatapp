@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       elevation: 0,
       centerTitle: true,
       backgroundColor: Theme.of(context).primaryColor,
-      title: const Text("Groups", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 27),),
+      title: const Text("Groupie!!!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 27),),
      ),
      drawer: Drawer(
       child: ListView(
